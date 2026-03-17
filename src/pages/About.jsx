@@ -74,7 +74,7 @@ export default function About() {
       </section>
 
       {/* Values Section - High Impact Cards */}
-      <section className="py-32 px-6 bg-black text-cream rounded-[4rem] mx-4 lg:mx-10 mb-20">
+      <section className="py-32 px-6 bg-black text-cream rounded-[4rem] mx-4 lg:mx-10 mb-20 overflow-hidden">
         <div className="max-w-7xl mx-auto">
           <SectionHeading
             light
@@ -83,21 +83,26 @@ export default function About() {
             center={true}
           />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-20">
-            <div className="p-12 rounded-[3.5rem] bg-white/5 border border-white/10 glass">
-              <Sparkles className="w-10 h-10 text-[#FF5656] mb-8" />
-              <h3 className="font-heading text-2xl font-black mb-4 text-white">Luxury</h3>
-              <p className="text-cream/50 text-sm font-light">Creating beautiful spaces and settings for your events.</p>
-            </div>
-            <div className="p-12 rounded-[3.5rem] bg-white/5 border border-white/10 glass">
-              <Globe className="w-10 h-10 text-[#FEB05D] mb-8" />
-              <h3 className="font-heading text-2xl font-black mb-4 text-white">Worldwide</h3>
-              <p className="text-cream/50 text-sm font-light">Planning perfect events anywhere in the world, with great care.</p>
-            </div>
-            <div className="p-12 rounded-[3.5rem] bg-white/5 border border-white/10 glass">
-              <Heart className="w-10 h-10 text-[#C7EABB] mb-8" />
-              <h3 className="font-heading text-2xl font-black mb-4 text-white">Privacy</h3>
-              <p className="text-cream/50 text-sm font-light">We are fully committed to keeping your event private and secure.</p>
-            </div>
+            {[
+              { icon: Sparkles, color: "#FF5656", title: "Luxury", desc: "Creating beautiful spaces and settings for your events." },
+              { icon: Globe, color: "#FEB05D", title: "Worldwide", desc: "Planning perfect events anywhere in the world, with great care." },
+              { icon: Heart, color: "#C7EABB", title: "Privacy", desc: "We are fully committed to keeping your event private and secure." }
+            ].map((belief, i) => (
+              <div 
+                key={i} 
+                className="p-8 lg:p-12 rounded-[2.5rem] lg:rounded-[3.5rem] bg-white/[0.03] border border-white/10 backdrop-blur-md relative group overflow-hidden"
+              >
+                {/* Subtle colored glow for each card to avoid "grey" look */}
+                <div 
+                  className="absolute -top-20 -right-20 w-40 h-40 blur-[80px] opacity-20 pointer-events-none group-hover:opacity-40 transition-opacity duration-700" 
+                  style={{ backgroundColor: belief.color }}
+                />
+                
+                <belief.icon className="w-8 h-8 lg:w-10 lg:h-10 mb-8 transition-transform duration-500 group-hover:scale-110" style={{ color: belief.color }} />
+                <h3 className="font-heading text-2xl font-black mb-4 text-white">{belief.title}</h3>
+                <p className="text-cream/40 text-sm font-light leading-relaxed">{belief.desc}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>

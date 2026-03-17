@@ -55,7 +55,7 @@ export default function Services() {
             center={true}
           />
 
-          <div className="mt-20 space-y-32">
+          <div className="mt-20 space-y-20 lg:space-y-32">
             {services.map((service, i) => (
               <motion.div
                 key={service.id}
@@ -63,11 +63,11 @@ export default function Services() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8 }}
-                className={`flex flex-col ${i % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-12 lg:gap-20 items-center`}
+                className={`flex flex-col ${i % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-10 lg:gap-20 items-center`}
               >
-                <TiltCard className="lg:w-1/2 relative group">
-                  <div className={`absolute -inset-4 ${service.color} rounded-[4rem] group-hover:scale-105 transition-transform duration-700 blur-2xl opacity-50`} />
-                  <div className="relative aspect-[4/3] rounded-[3rem] overflow-hidden shadow-2xl border border-black/5">
+                <TiltCard className="w-full lg:w-1/2 relative group">
+                  <div className={`absolute -inset-4 ${service.color} rounded-[2.5rem] lg:rounded-[4rem] group-hover:scale-105 transition-transform duration-700 blur-2xl opacity-40`} />
+                  <div className="relative aspect-[16/10] lg:aspect-[4/3] rounded-[2rem] lg:rounded-[3rem] overflow-hidden shadow-2xl border border-black/5">
                     <img
                       src={service.image}
                       alt={service.title}
@@ -76,17 +76,17 @@ export default function Services() {
                   </div>
                 </TiltCard>
 
-                <div className="lg:w-1/2 space-y-8">
+                <div className="w-full lg:w-1/2 space-y-6 lg:space-y-8">
                   <div className="flex items-center gap-4">
-                    <div className={`w-12 h-12 rounded-2xl ${service.color} flex items-center justify-center`}>
-                      <service.icon className={`w-5 h-5 ${service.textColor}`} />
+                    <div className={`w-10 h-10 lg:w-12 lg:h-12 rounded-xl lg:rounded-2xl ${service.color} flex items-center justify-center`}>
+                      <service.icon className={`w-4 h-4 lg:w-5 lg:h-5 ${service.textColor}`} />
                     </div>
-                    <span className={`text-[10px] font-black uppercase tracking-[0.3em] ${service.textColor}`}>
+                    <span className={`text-[9px] lg:text-[10px] font-black uppercase tracking-[0.3em] ${service.textColor}`}>
                       {service.label}
                     </span>
                   </div>
-                  <h2 className="font-heading text-5xl lg:text-7xl font-black leading-none">{service.title}</h2>
-                  <p className="text-xl text-black/60 font-light leading-relaxed max-w-lg">
+                  <h2 className="font-heading text-4xl lg:text-7xl font-black leading-none">{service.title}</h2>
+                  <p className="text-lg lg:text-xl text-black/60 font-light leading-relaxed max-w-lg">
                     {service.description}
                   </p>
                   <Link

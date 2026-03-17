@@ -4,6 +4,7 @@ import { ArrowUpRight, Star, MapPin, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import PageWrapper from '../components/PageWrapper';
 import SectionHeading from '../components/SectionHeading';
+import Decorative3DScene from '../components/Decorative3DScene';
 
 function MagneticButton({ children, className = "" }) {
   const ref = useRef(null);
@@ -95,9 +96,15 @@ import TiltCard from '../components/TiltCard';
 
 export default function Home() {
   return (
-    <PageWrapper>
+    <PageWrapper className="relative">
+      {/* Global Decorative 3D Ribbon Background */}
+      <div className="fixed inset-0 z-0 pointer-events-none">
+        <Decorative3DScene colorA="#FF5656" colorB="#FEB05D" showReflector={false} className="opacity-30" />
+      </div>
+
       {/* Hero Section - Editorial Redesign */}
-      <section className="relative min-h-[110vh] flex items-center pt-32 pb-40 px-6 overflow-hidden bg-[#FCF8F8]">
+      <section className="relative min-h-[100vh] flex items-center pt-32 pb-40 px-6 overflow-hidden">
+        
         <div className="relative z-10 max-w-[1400px] mx-auto w-full">
           <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-0">
             <motion.div
@@ -112,9 +119,9 @@ export default function Home() {
               <h1 className="font-heading text-5xl md:text-9xl lg:text-[11rem] font-black leading-[0.85] tracking-[-0.04em] mb-12 text-[#2C2C2C]">
                 <SplitText>Crafting</SplitText> <br />
                 <SplitText className="text-[#FF5656]">Perfect</SplitText> <br />
-                <SplitText>Moments.</SplitText>
+                <SplitText>Moments</SplitText>
               </h1>
-              
+
               <div className="flex flex-wrap gap-6 md:gap-8 items-center mt-12">
                 <MagneticButton className="w-full md:w-auto">
                   <Link
@@ -127,28 +134,28 @@ export default function Home() {
                     <div className="absolute inset-0 bg-[#FF5656] translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-[0.76, 0, 0.24, 1]" />
                   </Link>
                 </MagneticButton>
-                
+
                 <p className="text-base md:text-xl text-[#2C2C2C]/50 max-w-sm font-light leading-relaxed">
                   Bespoke weddings and corporate galas designed for the <span className="text-[#2C2C2C] font-bold">top 1% globally</span>.
                 </p>
               </div>
             </motion.div>
 
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, scale: 0.8, rotate: 5 }}
               animate={{ opacity: 1, scale: 1, rotate: 0 }}
               transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
               className="lg:w-2/5 relative lg:-ml-20"
             >
               <div className="relative aspect-[4/5] rounded-[4rem] overflow-hidden floating-image ring-1 ring-black/5">
-                <img 
-                  src="https://images.unsplash.com/photo-1519741497674-611481863552?w=1200&q=80" 
+                <img
+                  src="https://images.unsplash.com/photo-1519741497674-611481863552?w=1200&q=80"
                   className="w-full h-full object-cover scale-110"
                   alt="Luxury Event"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#2C2C2C]/60 via-transparent to-transparent" />
               </div>
-              
+
               {/* Floating Badge */}
               <motion.div
                 animate={{ y: [0, -20, 0] }}
@@ -196,46 +203,61 @@ export default function Home() {
             {/* Background Aura */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-aura-sky pointer-events-none" />
 
-            {/* Main Feature */}
-            <TiltCard className="relative z-10 aspect-[4/5] lg:aspect-auto lg:h-[800px] rounded-[3rem] overflow-hidden group shadow-brand">
-              <img
-                src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=1000&q=80"
-                alt="Luxury Indian Wedding"
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent p-12 flex flex-col justify-end">
-                <span className="text-[#FEB05D] font-black uppercase tracking-[0.4em] text-[10px] mb-4">Luxury Weddings</span>
-                <h3 className="font-heading text-4xl lg:text-6xl font-black text-white leading-[0.85] mb-6 tracking-[-0.04em]">Royal Indian <br /> Weddings</h3>
-                <Link to="/portfolio" className="inline-flex items-center gap-2 text-white/60 hover:text-white transition-colors">
-                  <span className="font-bold uppercase tracking-widest text-xs">View Project</span>
-                  <ArrowUpRight className="w-4 h-4" />
-                </Link>
-              </div>
-            </TiltCard>
-
-            <div className="grid grid-cols-1 gap-8 relative z-10">
-              {/* Secondary Grid Items */}
-              <TiltCard className="relative h-[384px] rounded-[3rem] overflow-hidden group shadow-lg bg-sky">
+            {/* Left Column */}
+            <div className="flex flex-col gap-8 relative z-10 w-full lg:w-auto">
+              <TiltCard className="aspect-[4/5] lg:h-[500px] rounded-[3rem] overflow-hidden group shadow-brand">
                 <img
-                  src="https://images.unsplash.com/photo-1540575861501-7cf05a4b125a?w=1000&q=80"
-                  alt="Elite Corporate Gala"
-                  className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-1000"
+                  src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=1000&q=80"
+                  alt="Luxury Indian Wedding"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
                 />
-                <div className="absolute inset-0 bg-black/40 p-12 flex flex-col justify-end">
-                  <h3 className="font-heading text-3xl font-black text-white mb-2">Business Events</h3>
-                  <p className="text-white/70 text-sm font-light">Large-scale events for global brands.</p>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent p-8 lg:p-12 flex flex-col justify-end">
+                  <span className="text-[#FEB05D] font-black uppercase tracking-[0.4em] text-[10px] mb-4">Luxury Weddings</span>
+                  <h3 className="font-heading text-4xl lg:text-6xl font-black text-white leading-[0.85] mb-6 tracking-[-0.04em]">Royal Indian <br /> Weddings</h3>
+                  <Link to="/portfolio" className="inline-flex items-center gap-2 text-white/60 hover:text-white transition-colors">
+                    <span className="font-bold uppercase tracking-widest text-xs">View Project</span>
+                    <ArrowUpRight className="w-4 h-4" />
+                  </Link>
                 </div>
               </TiltCard>
 
-              <TiltCard className="relative h-[384px] rounded-[3rem] overflow-hidden group shadow-lg bg-lime">
+              {/* NEW IMAGE CARD */}
+              <TiltCard className="h-[250px] lg:h-[300px] rounded-[3rem] overflow-hidden group shadow-lg bg-white/5 border border-black/5 backdrop-blur-sm">
+                <img
+                  src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=1000&q=80"
+                  alt="Floral Design"
+                  className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-1000"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent p-8 lg:p-10 flex flex-col justify-end">
+                  <h3 className="font-heading text-2xl font-black text-white mb-2">Floral Artistry</h3>
+                  <p className="text-white/70 text-[9px] font-light uppercase tracking-widest">Bespoke Decor</p>
+                </div>
+              </TiltCard>
+            </div>
+
+            <div className="grid grid-cols-1 gap-8 relative z-10">
+              {/* Secondary Grid Items */}
+              <TiltCard className="relative h-[300px] lg:h-[384px] rounded-[3rem] overflow-hidden group shadow-lg bg-white/5 border border-black/5">
+                <img
+                  src="https://images.unsplash.com/photo-1540575861501-7cf05a4b125a?w=1000&q=80"
+                  alt="Elite Corporate Gala"
+                  className="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-1000"
+                />
+                <div className="absolute inset-0 bg-black/30 p-8 lg:p-12 flex flex-col justify-end">
+                  <h3 className="font-heading text-2xl lg:text-3xl font-black text-white mb-2">Business Events</h3>
+                  <p className="text-white/70 text-xs lg:text-sm font-light">Large-scale events for global brands.</p>
+                </div>
+              </TiltCard>
+
+              <TiltCard className="relative h-[300px] lg:h-[384px] rounded-[3rem] overflow-hidden group shadow-lg bg-white/5 border border-black/5">
                 <img
                   src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=1000&q=80"
                   alt="Elite Hospitality"
-                  className="w-full h-full object-cover opacity-70 group-hover:scale-105 transition-transform duration-1000"
+                  className="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-1000"
                 />
-                <div className="absolute inset-0 bg-black/40 p-12 flex flex-col justify-end">
-                  <h3 className="font-heading text-3xl font-black text-white mb-2">Private Parties</h3>
-                  <p className="text-white/70 text-sm font-light">Small gatherings planned with great care.</p>
+                <div className="absolute inset-0 bg-black/30 p-8 lg:p-12 flex flex-col justify-end">
+                  <h3 className="font-heading text-2xl lg:text-3xl font-black text-white mb-2">Private Parties</h3>
+                  <p className="text-white/70 text-xs lg:text-sm font-light">Small gatherings planned with great care.</p>
                 </div>
               </TiltCard>
             </div>
@@ -260,12 +282,12 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-20">
             {features.map((feature, i) => (
               <TiltCard key={feature.title}>
-                <div className="p-12 rounded-[3.5rem] bg-white border border-[#2C2C2C]/5 hover:border-[#FF5656]/20 hover:shadow-2xl transition-all duration-700 group cursor-default h-full">
-                  <div className={`w-14 h-14 rounded-2xl ${feature.color} flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500`}>
-                    <feature.icon className={`w-6 h-6 ${feature.textColor}`} />
+                <div className="p-8 lg:p-12 rounded-[2.5rem] lg:rounded-[3.5rem] bg-white border border-[#2C2C2C]/5 hover:border-[#FF5656]/20 hover:shadow-2xl transition-all duration-700 group cursor-default h-full flex flex-col">
+                  <div className={`w-12 h-12 lg:w-14 lg:h-14 rounded-2xl ${feature.color} flex items-center justify-center mb-6 lg:mb-8 group-hover:scale-110 transition-transform duration-500`}>
+                    <feature.icon className={`w-5 h-5 lg:w-6 lg:h-6 ${feature.textColor}`} />
                   </div>
-                  <h3 className="font-heading text-2xl font-black mb-4 group-hover:text-[#FF5656] transition-colors text-[#2C2C2C]">{feature.title}</h3>
-                  <p className="text-[#2C2C2C]/50 text-sm font-light leading-relaxed">{feature.description}</p>
+                  <h3 className="font-heading text-xl lg:text-2xl font-black mb-4 group-hover:text-[#FF5656] transition-colors text-[#2C2C2C]">{feature.title}</h3>
+                  <p className="text-[#2C2C2C]/50 text-sm lg:text-base font-light leading-relaxed">{feature.description}</p>
                 </div>
               </TiltCard>
             ))}
