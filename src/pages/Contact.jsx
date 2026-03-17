@@ -1,148 +1,99 @@
 import { motion } from 'framer-motion';
-import { Send, MapPin, Phone, Mail, Instagram, Twitter, Linkedin, ArrowUpRight } from 'lucide-react';
+import { Send, MapPin, Phone, Mail } from 'lucide-react';
 import PageWrapper from '../components/PageWrapper';
-import SectionHeading from '../components/SectionHeading';
 
-const contactInfo = [
-  {
-    icon: MapPin,
-    title: 'Flagship Studio',
-    details: 'The Chanakya, Chanakyapuri, New Delhi - 110021',
-    link: '#'
-  },
-  {
-    icon: Mail,
-    title: 'Inquiries',
-    details: 'hello@elance.in',
-    link: 'mailto:hello@elance.in'
-  },
-  {
-    icon: Phone,
-    title: 'Call Us',
-    details: '+91 11 4900 0000',
-    link: 'tel:+911149000000'
-  }
+const locations = [
+  { city: 'Mumbai', desc: 'Main Office • Worli, Sea Face', time: 'IST/GMT+5:30' },
+  { city: 'Delhi', desc: 'Atelier • Lutyens Zone', time: 'IST/GMT+5:30' }
 ];
-
-import Decorative3DScene from '../components/Decorative3DScene';
 
 export default function Contact() {
   return (
-    <PageWrapper>
-      <section className="relative pt-40 pb-32 px-6 overflow-hidden min-h-[70vh] flex items-center">
-        {/* 3D Background */}
-        <Decorative3DScene colorA="#8CE4FF" colorB="#FFF799" showReflector={false} />
+    <PageWrapper className="bg-[#070707] min-h-screen pb-0">
+      <section className="min-h-screen flex flex-col lg:flex-row relative">
 
-        <div className="relative z-10 max-w-7xl mx-auto w-full">
-          <SectionHeading
-            label="Contact Us"
-            title={<>Plan Your <br /><span className="text-gradient">Event</span></>}
-            description=""
-            center={true}
-          />
+        {/* ═══════════════════════════════════════
+            LEFT — Simple & Clear Form
+        ═══════════════════════════════════════ */}
+        <div className="w-full lg:w-[60%] pt-40 lg:pt-56 pb-20 px-4 sm:px-6 lg:px-20 z-10 bg-[#070707]">
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="w-full max-w-2xl"
+          >
+            <div className="flex items-center gap-4 mb-8">
+              <div className="w-16 h-[1px] bg-[#B89961]" />
+              <span className="text-[#B89961] text-[10px] sm:text-[11px] font-black tracking-[0.5em] uppercase">Get In Touch</span>
+            </div>
 
-          <div className="mt-24 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="space-y-12"
-            >
-              <div className="space-y-6">
-                <h2 className="font-heading text-4xl lg:text-6xl font-black leading-tight">Let&apos;s Plan Your <span className="text-red italic">Event</span></h2>
-                <p className="text-lg lg:text-xl text-black/60 font-light leading-relaxed max-w-md">
-                  We plan a limited number of events each year to ensure we give your celebration our full attention.
-                </p>
-              </div>
+            <h1 className="font-heading text-fluid-2 font-black leading-[0.85] tracking-[-0.04em] text-white uppercase overflow-hidden mb-12">
+              <span className="block italic text-white/50">Start Your</span>
+              <span className="block">Journey Here.</span>
+            </h1>
 
-              <div className="space-y-6 lg:space-y-8">
-                {contactInfo.map((info, i) => (
-                  <motion.a
-                    key={info.title}
-                    href={info.link}
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.1 }}
-                    className="flex items-center gap-6 group"
-                  >
-                    <div className="w-12 h-12 lg:w-14 lg:h-14 rounded-2xl bg-black/5 flex items-center justify-center group-hover:bg-black group-hover:text-white transition-all duration-500">
-                      <info.icon className="w-5 h-5 lg:w-6 lg:h-6" />
-                    </div>
-                    <div>
-                      <div className="text-[10px] font-bold uppercase tracking-widest text-black/40 mb-1">{info.title}</div>
-                      <div className="text-base lg:text-lg font-black group-hover:text-red transition-colors">{info.details}</div>
-                    </div>
-                  </motion.a>
-                ))}
-              </div>
+            <p className="text-white/40 text-fluid-p font-light leading-relaxed mb-16 sm:mb-24">
+              We are ready to make your dream event come to life. Share your vision with us, and we will handle the rest.
+            </p>
 
-              {/* Decorative Visual for Contact Page */}
-              <div className="relative h-64 lg:h-80 rounded-[3rem] overflow-hidden shadow-2xl group ring-1 ring-black/5">
-                <img 
-                  src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&q=80" 
-                  alt="Premium Event Space" 
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[2s]"
-                />
-                <div className="absolute inset-0 bg-gradient-to-tr from-black/40 to-transparent" />
-                <div className="absolute bottom-8 left-8">
-                  <div className="glass px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-widest">Global Operations</div>
+            <form className="space-y-12 sm:space-y-16 relative">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-12 sm:gap-16">
+                <div className="relative group">
+                  <input type="text" id="name" required className="w-full bg-transparent border-0 border-b border-white/20 pb-4 text-xl sm:text-2xl font-heading font-medium text-white focus:ring-0 focus:border-white focus:outline-none transition-colors peer placeholder-transparent rounded-none" placeholder="Name" />
+                  <label htmlFor="name" className="absolute left-0 top-0 text-white/40 text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] transition-all peer-focus:-top-6 peer-focus:text-[9px] peer-focus:text-[#B89961] peer-valid:-top-6 peer-valid:text-[9px] peer-valid:text-white/40">Your Name</label>
+                </div>
+                <div className="relative group">
+                  <input type="email" id="email" required className="w-full bg-transparent border-0 border-b border-white/20 pb-4 text-xl sm:text-2xl font-heading font-medium text-white focus:ring-0 focus:border-white focus:outline-none transition-colors peer placeholder-transparent rounded-none" placeholder="Email" />
+                  <label htmlFor="email" className="absolute left-0 top-0 text-white/40 text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] transition-all peer-focus:-top-6 peer-focus:text-[9px] peer-focus:text-[#B89961] peer-valid:-top-6 peer-valid:text-[9px] peer-valid:text-white/40">Your Email</label>
                 </div>
               </div>
 
-              <div className="pt-8 border-t border-black/10 flex gap-6">
-                {[Instagram, Twitter, Linkedin].map((Icon, i) => (
-                  <a key={i} href="#" className="w-12 h-12 rounded-full border border-black/10 flex items-center justify-center text-black/40 hover:text-black hover:border-black transition-all">
-                    <Icon className="w-5 h-5" />
-                  </a>
-                ))}
+              <div className="relative group mt-12">
+                <textarea id="vision" rows="3" required className="w-full bg-transparent border-0 border-b border-white/20 pb-4 text-xl sm:text-2xl font-heading font-medium text-white focus:ring-0 focus:border-white focus:outline-none transition-colors resize-none peer placeholder-transparent rounded-none" placeholder="Vision"></textarea>
+                <label htmlFor="vision" className="absolute left-0 top-0 text-white/40 text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] transition-all peer-focus:-top-6 peer-focus:text-[9px] peer-focus:text-[#B89961] peer-valid:-top-6 peer-valid:text-[9px] peer-valid:text-white/40">Tell Us About Your Event</label>
               </div>
-            </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="p-8 lg:p-12 rounded-[3rem] lg:rounded-[4rem] bg-white border border-black/5 shadow-2xl relative"
-            >
-              <div className="absolute top-0 right-0 p-8 lg:p-12 opacity-5">
-                <Send className="w-24 h-24 lg:w-32 lg:h-32" />
-              </div>
-              <form className="space-y-6 lg:space-y-8 relative z-10">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-                  <div className="space-y-2">
-                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-black/40 ml-4">Full Name</label>
-                    <input type="text" className="w-full px-8 py-5 rounded-full bg-black/5 border-none focus:ring-2 focus:ring-red outline-none font-bold" placeholder="e.g. Vikram Malhotra" />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-black/40 ml-4">Email Address</label>
-                    <input type="email" className="w-full px-8 py-5 rounded-full bg-black/5 border-none focus:ring-2 focus:ring-red outline-none font-bold" placeholder="vikram@horizon.com" />
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-black/40 ml-4">Your Message</label>
-                  <textarea rows="4" className="w-full px-8 py-6 rounded-[2rem] bg-black/5 border-none focus:ring-2 focus:ring-red outline-none font-bold resize-none" placeholder="Tell us about your event..."></textarea>
-                </div>
-                <button className="w-full py-5 lg:py-6 bg-black text-white rounded-full font-black text-lg lg:text-xl flex items-center justify-center gap-4 hover:bg-red hover:shadow-2xl hover:shadow-red/20 transition-all duration-500 group">
-                  Send Message <ArrowUpRight className="w-6 h-6 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+              <div className="pt-8">
+                <button className="group inline-flex items-center gap-6 bg-transparent text-white text-lg sm:text-xl font-black uppercase tracking-[0.1em] hover:text-[#B89961] transition-colors border-b-2 border-transparent hover:border-[#B89961] pb-2">
+                  Send Message
+                  <Send className="w-5 h-5 group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform" />
                 </button>
-              </form>
-            </motion.div>
-          </div>
-        </div>
-      </section>
+              </div>
+            </form>
 
-      {/* Map Backdrop or Final Visual */}
-      <section className="h-[40vh] bg-stone-200 rounded-[4rem] mx-4 lg:mx-10 mb-20 overflow-hidden relative grayscale hover:grayscale-0 transition-all duration-1000 grayscale">
-        <img
-          src="https://images.unsplash.com/photo-1548013146-72479768bbaa?w=1600&q=80"
-          alt="India Map Concept"
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-black/10" />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="glass px-10 py-4 rounded-full font-black text-xs uppercase tracking-[0.5em]">Delhi • Mumbai • London • Dubai</div>
+            <div className="mt-32 pt-16 border-t border-white/10 grid grid-cols-1 sm:grid-cols-2 gap-12">
+              {locations.map((loc) => (
+                <div key={loc.city}>
+                  <h4 className="font-heading text-2xl sm:text-3xl font-black text-white uppercase mb-4">{loc.city}</h4>
+                  <p className="text-[#B89961] text-[10px] font-bold uppercase tracking-[0.4em] mb-2">{loc.time}</p>
+                  <p className="text-white/40 text-sm font-light leading-relaxed">{loc.desc}</p>
+                </div>
+              ))}
+            </div>
+
+          </motion.div>
         </div>
+
+        {/* ═══════════════════════════════════════
+            RIGHT — Cinematic Indian Image
+        ═══════════════════════════════════════ */}
+        <div className="w-full lg:w-[40%] h-[50vh] lg:h-screen relative lg:fixed lg:right-0 lg:top-0 order-first lg:order-last">
+          <motion.div
+            initial={{ scale: 1.1, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+            className="absolute inset-0"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1544161515-4ad65f738bd7?w=1600&q=85" // Beautiful Indian Wedding Scene
+              alt="Indian Event Contact"
+              className="w-full h-full object-cover grayscale opacity-80"
+            />
+            <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[#070707] to-transparent lg:hidden" />
+            <div className="hidden lg:block absolute inset-0 bg-gradient-to-l from-[#070707]/20 via-[#070707] to-[#070707]" />
+          </motion.div>
+        </div>
+
       </section>
     </PageWrapper>
   );

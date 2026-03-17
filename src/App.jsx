@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
+import { ReactLenis } from 'lenis/react';
 
 import LoadingScreen from './components/LoadingScreen';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
-import CinematicBackground from './components/CinematicBackground';
 import CustomCursor from './components/CustomCursor';
 
 import Home from './pages/Home';
@@ -38,25 +38,31 @@ export default function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 2800);
+    // Slightly longer loading screen to build cinematic anticipation
+    const timer = setTimeout(() => setLoading(false), 2000);
     return () => clearTimeout(timer);
   }, []);
 
-  if (loading) return <LoadingScreen />;
-
   return (
-    <Router>
-      <CustomCursor />
-      <ScrollToTop />
-      <CinematicBackground />
-
-      <div className="relative z-10 flex flex-col min-h-screen">
-        <Navbar />
-        <main className="flex-grow">
-          <AnimatedRoutes />
-        </main>
-        <Footer />
-      </div>
-    </Router>
+    <ReactLenis root options={{ lerp: 0.1, duration: 1.5, smoothTouch: false }}>
+      <Router>
+        <ScrollToTop />
+        <CustomCursor />
+        
+        <AnimatePresence mode="wait">
+          {loading ? (
+            <LoadingScreen key="loader" />
+          ) : (
+            <div key="content" className="relative z-10 flex flex-col min-h-screen">
+              <Navbar />
+              <main className="flex-grow">
+                <AnimatedRoutes />
+              </main>
+              <Footer />
+            </div>
+          )}
+        </AnimatePresence>
+      </Router>
+    </ReactLenis>
   );
 }

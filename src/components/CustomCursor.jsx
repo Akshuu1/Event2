@@ -1,155 +1,81 @@
-import { useEffect, useState, useRef } from 'react';
-import { motion, useSpring, useMotionValue, AnimatePresence } from 'framer-motion';
+import { useEffect, useState } from 'react';
 
-const CustomCursor = () => {
-  const [isHovered, setIsHovered] = useState(false);
-  const [isClicked, setIsClicked] = useState(false);
-  
-  const cursorRef = useRef(null);
-  const mouseX = useMotionValue(-100);
-  const mouseY = useMotionValue(-100);
-
-  // Core cursor spring
-  const springConfig = { damping: 25, stiffness: 400, mass: 0.5 };
-  const cursorX = useSpring(mouseX, springConfig);
-  const cursorY = useSpring(mouseY, springConfig);
-
-  // Aesthetic "Lagging" Ring - slightly slower for flow
-  const ringX = useSpring(mouseX, { damping: 30, stiffness: 200, mass: 0.8 });
-  const ringY = useSpring(mouseY, { damping: 30, stiffness: 200, mass: 0.8 });
+export default function CustomCursor() {
+  const [position, setPosition] = useState({ x: -100, y: -100 });
+  const [isHovering, setIsHovering] = useState(false);
+  const [isClicking, setIsClicking] = useState(false);
 
   useEffect(() => {
+    // Optimized: Only run on desktop
+    if (window.matchMedia('(max-width: 1024px)').matches) return;
+
+    let requestRef;
+    let targetX = -100;
+    let targetY = -100;
+
     const handleMouseMove = (e) => {
-      mouseX.set(e.clientX);
-      mouseY.set(e.clientY);
-
-      const target = e.target.closest('.magnetic-target');
-      if (target) {
-        const rect = target.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-        const distanceX = e.clientX - centerX;
-        const distanceY = e.clientY - centerY;
-        
-        target.style.transform = `translate(${distanceX * 0.35}px, ${distanceY * 0.35}px)`;
-      } else {
-        document.querySelectorAll('.magnetic-target').forEach(el => {
-          el.style.transform = 'translate(0, 0)';
-        });
-      }
+      targetX = e.clientX;
+      targetY = e.clientY;
+      
+      // Check if hovering interactive element (optimized vs querying DOM every move)
+      const target = e.target;
+      const isInteractive = window.getComputedStyle(target).cursor === 'pointer' || 
+                           target.tagName.toLowerCase() === 'a' ||
+                           target.tagName.toLowerCase() === 'button';
+      setIsHovering(isInteractive);
     };
 
-    const handleMouseDown = () => setIsClicked(true);
-    const handleMouseUp = () => setIsClicked(false);
+    const handleMouseDown = () => setIsClicking(true);
+    const handleMouseUp = () => setIsClicking(false);
 
-    const handleMouseOver = (e) => {
-      const target = e.target.closest('button, a, .magnetic-target, input, textarea') || 
-                     (window.getComputedStyle(e.target).cursor === 'pointer' ? e.target : null);
-      if (target) setIsHovered(true);
+    // Smooth interpolation loop
+    const animate = () => {
+      setPosition((prev) => ({
+        x: prev.x + (targetX - prev.x) * 0.15, // LERP for butter-smooth catching up
+        y: prev.y + (targetY - prev.y) * 0.15,
+      }));
+      requestRef = requestAnimationFrame(animate);
     };
-
-    const handleMouseOut = () => setIsHovered(false);
 
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
-    window.addEventListener('mousedown', handleMouseDown);
-    window.addEventListener('mouseup', handleMouseUp);
-    window.addEventListener('mouseover', handleMouseOver);
-    window.addEventListener('mouseout', handleMouseOut);
+    window.addEventListener('mousedown', handleMouseDown, { passive: true });
+    window.addEventListener('mouseup', handleMouseUp, { passive: true });
+    
+    requestRef = requestAnimationFrame(animate);
 
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mousedown', handleMouseDown);
       window.removeEventListener('mouseup', handleMouseUp);
-      window.removeEventListener('mouseover', handleMouseOver);
-      window.removeEventListener('mouseout', handleMouseOut);
+      cancelAnimationFrame(requestRef);
     };
-  }, [mouseX, mouseY]);
+  }, []);
+
+  // Don't render on mobile to save performance
+  if (typeof window !== 'undefined' && window.innerWidth <= 1024) return null;
 
   return (
     <>
-      <div className="fixed inset-0 pointer-events-none z-[10000]">
-        {/* Geometric Outer Ring */}
-        <motion.div
-          style={{
-            x: ringX,
-            y: ringY,
-            translateX: '-50%',
-            translateY: '-50%',
-          }}
-          className="absolute w-12 h-12 border border-[#FF5656]/30 rounded-full flex items-center justify-center pointer-events-none"
-          animate={{
-            scale: isHovered ? 1.8 : 1,
-            rotate: isHovered ? 90 : 0,
-            borderRadius: isHovered ? "30%" : "50%",
-            borderColor: isHovered ? "rgba(255, 86, 86, 0.6)" : "rgba(255, 86, 86, 0.3)"
-          }}
-          transition={{ type: "spring", stiffness: 200, damping: 25 }}
-        >
-          {/* Geometric "Dots" orbiting */}
-          <motion.div 
-            animate={{ rotate: 360 }}
-            transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-            className="absolute inset-0"
-          >
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1 h-1 bg-[#FF5656] rounded-full" />
-            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 bg-[#FF5656] rounded-full opacity-30" />
-          </motion.div>
-        </motion.div>
-
-        {/* Main Cursor Visuals */}
-        <motion.div
-          ref={cursorRef}
-          style={{
-            x: cursorX,
-            y: cursorY,
-            translateX: '-50%',
-            translateY: '-50%',
-          }}
-          className="absolute flex items-center justify-center pointer-events-none"
-        >
-          <motion.div
-            animate={{
-              scale: isClicked ? 0.8 : (isHovered ? 1.2 : 1),
-              rotate: isHovered ? -15 : 0,
-            }}
-            transition={{ type: "spring", stiffness: 400, damping: 25 }}
-            className="relative w-10 h-10 flex items-center justify-center"
-          >
-            {/* Core Geometric Cursor */}
-            <div className="relative">
-              <div className="w-3 h-3 rounded-full bg-[#FF5656] shadow-[0_0_15px_rgba(255,86,86,0.5)]" />
-              <motion.div 
-                animate={{ scale: [1, 1.5, 1], opacity: [0.4, 0, 0.4] }}
-                transition={{ duration: 2, repeat: Infinity }}
-                className="absolute inset-0 w-3 h-3 rounded-full border border-[#FF5656]" 
-              />
-            </div>
-
-            {/* Premium Glow Effect */}
-            <AnimatePresence>
-              {isHovered && (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.5 }}
-                  animate={{ opacity: 0.15, scale: 2 }}
-                  exit={{ opacity: 0, scale: 0.5 }}
-                  className="absolute inset-0 rounded-full bg-[#FF5656] blur-xl -z-10"
-                />
-              )}
-            </AnimatePresence>
-          </motion.div>
-        </motion.div>
-      </div>
-
-      <style dangerouslySetInnerHTML={{ __html: `
-        * { cursor: none !important; }
-        .magnetic-target { transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1); }
-        @media (max-width: 1024px) {
-          * { cursor: auto !important; }
-          .fixed.inset-0.pointer-events-none.z-\[10000\] { display: none; }
-        }
-      `}} />
+      {/* 
+        Ultra-lightweight DOM.
+        We use raw inline styles over Framer Motion for the ultimate 60fps locking. 
+      */}
+      <div 
+        className="fixed top-0 left-0 w-4 h-4 rounded-full bg-white pointer-events-none z-[10000] mix-blend-difference"
+        style={{
+          transform: `translate3d(${position.x - 8}px, ${position.y - 8}px, 0) scale(${isClicking ? 0.5 : isHovering ? 3 : 1})`,
+          transition: 'transform 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
+          willChange: 'transform'
+        }}
+      />
+      <div 
+        className="fixed top-0 left-0 w-12 h-12 rounded-full border border-white/20 pointer-events-none z-[9999]"
+        style={{
+          transform: `translate3d(${position.x - 24}px, ${position.y - 24}px, 0) scale(${isClicking ? 0.8 : isHovering ? 1.5 : 1})`,
+          transition: 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+          willChange: 'transform'
+        }}
+      />
     </>
   );
-};
-
-export default CustomCursor;
+}
