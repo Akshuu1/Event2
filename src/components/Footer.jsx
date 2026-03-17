@@ -91,7 +91,7 @@ export default function Footer() {
               </h3>
             </Link>
             <p className="text-white/50 leading-relaxed mb-8 max-w-sm">
-              Crafting extraordinary experiences that captivate, inspire, and endure. 
+              Crafting extraordinary experiences that captivate, inspire, and endure.
               Your vision, our expertise.
             </p>
 

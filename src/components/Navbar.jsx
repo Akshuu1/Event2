@@ -37,11 +37,10 @@ export default function Navbar() {
         className={`fixed top-4 left-1/2 -translate-x-1/2 z-[100] transition-all duration-500 ${scrolled ? 'top-3' : 'top-6'
           }`}
       >
-        <div className={`relative rounded-full px-2 py-2 transition-all duration-500 shadow-2xl ${
-          scrolled
-            ? 'bg-white/95 backdrop-blur-3xl'
-            : 'bg-white/10 backdrop-blur-2xl border border-white/20'
-        }`}>
+        <div className={`relative rounded-full px-2 py-2 transition-all duration-500 shadow-2xl ${scrolled
+            ? 'bg-[#FCF8F8]/95 backdrop-blur-3xl border border-[#FF5656]/10'
+            : 'bg-[#FCF8F8]/10 backdrop-blur-2xl border border-white/20'
+          }`}>
           {/* Subtle light refraction border */}
           <div className="absolute inset-0 rounded-full p-[1px] bg-gradient-to-r from-white/20 via-white/5 to-white/20 -z-10" />
 
@@ -49,7 +48,7 @@ export default function Navbar() {
             {/* Logo */}
             <Link
               to="/"
-              className="px-5 py-2.5 font-heading font-black text-2xl tracking-tighter text-black hover:scale-105 transition-all"
+              className="px-5 py-2.5 font-heading font-black text-2xl tracking-[-0.05em] text-[#FF5656] hover:scale-105 transition-all"
             >
               Élance
             </Link>
@@ -60,11 +59,10 @@ export default function Navbar() {
                 <Link
                   key={link.path}
                   to={link.path}
-                  className={`relative px-5 py-2 text-[10px] font-black uppercase tracking-[0.25em] transition-all rounded-full ${
-                    location.pathname === link.path 
-                    ? 'bg-black text-white shadow-xl' 
-                    : 'text-black/50 hover:text-black hover:bg-black/5'
-                  }`}
+                  className={`relative px-5 py-2 text-[10px] font-black uppercase tracking-[0.4em] transition-all rounded-full ${location.pathname === link.path
+                      ? 'bg-[#FF5656] text-[#FCF8F8] shadow-xl'
+                      : 'text-[#2C2C2C]/50 hover:text-[#FF5656] hover:bg-[#FF5656]/5'
+                    }`}
                 >
                   {link.name}
                 </Link>
@@ -142,8 +140,8 @@ export default function Navbar() {
                     <Link
                       to={link.path}
                       className={`block px-4 py-3.5 text-lg font-heading font-medium rounded-2xl transition-all duration-300 ${location.pathname === link.path
-                          ? 'bg-black text-cream'
-                          : 'text-black hover:bg-black/5'
+                        ? 'bg-black text-cream'
+                        : 'text-black hover:bg-black/5'
                         }`}
                     >
                       {link.name}

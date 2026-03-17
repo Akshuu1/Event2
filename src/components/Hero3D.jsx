@@ -3,12 +3,12 @@ import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { Float, MeshDistortMaterial, Sphere, MeshWobbleMaterial, OrbitControls, Environment, PerspectiveCamera, PresentationControls } from '@react-three/drei';
 import * as THREE from 'three';
 
-function FloatingShape({ shape = 'sphere', color = '#8CE4FF', size = 1, ...props }) {
+function FloatingShape({ shape = 'sphere', color = '#dcacc2', size = 1, ...props }) {
   const mesh = useRef();
   const [hovered, setHover] = useState(false);
 
   useFrame((state) => {
-    const time = state.clock.getElapsedTime();
+    const time = state.clock.elapsedTime;
     mesh.current.rotation.x = Math.sin(time / 4);
     mesh.current.rotation.y = Math.cos(time / 2);
   });
@@ -28,9 +28,9 @@ function FloatingShape({ shape = 'sphere', color = '#8CE4FF', size = 1, ...props
         ) : (
           <boxGeometry args={[size, size, size]} />
         )}
-        
+
         <MeshDistortMaterial
-          color={hovered ? '#E62727' : color}
+          color={hovered ? '#6f595b' : color}
           speed={3}
           distort={0.4}
           radius={1}
@@ -59,13 +59,13 @@ export default function Hero3D() {
     <div className="absolute inset-0 z-0 pointer-events-auto h-screen w-full">
       <Canvas shadows dpr={[1, 2]}>
         <PerspectiveCamera makeDefault position={[0, 0, 8]} fov={50} />
-        
+
         {/* Lights */}
         <ambientLight intensity={0.5} />
         <spotLight position={[10, 15, 10]} angle={0.3} penumbra={1} intensity={1} castShadow />
-        <pointLight position={[-10, -10, -10]} intensity={1} color="#8CE4FF" />
-        <pointLight position={[10, 10, 10]} intensity={1} color="#FFF799" />
-        
+        <pointLight position={[-10, -10, -10]} intensity={1} color="#dcacc2" />
+        <pointLight position={[10, 10, 10]} intensity={1} color="#e1a2aa" />
+
         <PresentationControls
           global
           config={{ mass: 2, tension: 500 }}
@@ -75,43 +75,43 @@ export default function Hero3D() {
           azimuth={[-Math.PI / 1.4, Math.PI / 1.4]}
         >
           {/* Main central shape */}
-          <FloatingShape 
-            shape="sphere" 
-            size={1.5} 
-            color="#E62727" 
-            position={[0, 0, 0]} 
+          <FloatingShape
+            shape="sphere"
+            size={1.5}
+            color="#6f595b"
+            position={[0, 0, 0]}
           />
-          
+
           {/* Secondary floating elements */}
-          <FloatingShape 
-            shape="torus" 
-            size={0.8} 
-            color="#8CE4FF" 
-            position={[-3, 2, -1]} 
+          <FloatingShape
+            shape="torus"
+            size={0.8}
+            color="#e1a2aa"
+            position={[-3, 2, -1]}
           />
-          <FloatingShape 
-            shape="torus" 
-            size={1} 
-            color="#FFF799" 
-            position={[3, -1.5, -2]} 
+          <FloatingShape
+            shape="torus"
+            size={1}
+            color="#dcacc2"
+            position={[3, -1.5, -2]}
           />
-          <FloatingShape 
-            shape="sphere" 
-            size={0.5} 
-            color="#EEFABD" 
-            position={[-2.5, -2.5, 1]} 
+          <FloatingShape
+            shape="sphere"
+            size={0.5}
+            color="#fac7cf"
+            position={[-2.5, -2.5, 1]}
           />
-          <FloatingShape 
-            shape="sphere" 
-            size={0.4} 
-            color="#FDEDED" 
-            position={[2, 2.5, 0]} 
+          <FloatingShape
+            shape="sphere"
+            size={0.4}
+            color="#fdfdf9"
+            position={[2, 2.5, 0]}
           />
         </PresentationControls>
 
         <Rig />
         <Environment preset="city" />
-        
+
         {/* Particles */}
         <Particles count={40} />
       </Canvas>
@@ -121,7 +121,7 @@ export default function Hero3D() {
 
 function Particles({ count }) {
   const mesh = useRef();
-  
+
   const particles = useMemo(() => {
     const temp = [];
     for (let i = 0; i < count; i++) {
@@ -161,7 +161,27 @@ function Particles({ count }) {
   return (
     <instancedMesh ref={mesh} args={[null, null, count]}>
       <sphereGeometry args={[0.05, 12, 12]} />
-      <meshStandardMaterial color="#8CE4FF" emissive="#8CE4FF" emissiveIntensity={2} transparent opacity={0.4} />
+      <meshStandardMaterial color="#dcacc2" emissive="#dcacc2" emissiveIntensity={2} transparent opacity={0.4} />
     </instancedMesh>
+  );
+}
+          <CentralCelebrationOrb color="#EC4899" size={2.5} />
+          <CrystalShard position={[-7, 3, -4]} color="#C4B5FD" scale={0.5} speed={0.5} />
+          <CrystalShard position={[9, -2, -6]} color="#FDBA74" scale={0.7} speed={0.6} />
+        </Center >
+
+        <ScintillaParticles />
+        <Rig />
+        
+        <Environment preset="night" />
+        
+        <Sparkles count={50} scale={20} size={1} speed={0.2} color="#FFFFFF" opacity={0.2} />
+
+        <EffectComposer disableNormalPass>
+          <Bloom luminanceThreshold={0.8} intensity={1} levels={7} mipmapBlur />
+          <Noise opacity={0.02} />
+        </EffectComposer>
+      </Canvas >
+    </div >
   );
 }

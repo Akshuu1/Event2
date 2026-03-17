@@ -13,7 +13,7 @@ const projects = [
     category: 'Royal Weddings',
     location: 'Umaid Bhawan Palace',
     image: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=1200&q=80',
-    color: 'bg-red',
+    color: 'bg-[#FF5656]',
     gridSpan: 'lg:col-span-2 lg:row-span-2'
   },
   {
@@ -21,7 +21,7 @@ const projects = [
     category: 'Brand Galas',
     location: 'Monte Carlo',
     image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1000&q=80',
-    color: 'bg-sky',
+    color: 'bg-[#FEB05D]',
     gridSpan: 'lg:col-span-1 lg:row-span-1'
   },
   {
@@ -29,7 +29,7 @@ const projects = [
     category: 'Royal Weddings',
     location: "Villa d'Este",
     image: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=1000&q=80',
-    color: 'bg-yellow',
+    color: 'bg-[#C7EABB]',
     gridSpan: 'lg:col-span-1 lg:row-span-1'
   },
   {
@@ -37,7 +37,7 @@ const projects = [
     category: 'Private Retreats',
     location: 'Al Maha Resort',
     image: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=1200&q=80',
-    color: 'bg-lime',
+    color: 'bg-[#F8FAB4]',
     gridSpan: 'lg:col-span-1 lg:row-span-1'
   },
   {
@@ -45,7 +45,7 @@ const projects = [
     category: 'Brand Galas',
     location: 'City Palace, Udaipur',
     image: 'https://images.unsplash.com/photo-1511578314322-379afb476865?w=1000&q=80',
-    color: 'bg-blush',
+    color: 'bg-[#FEB05D]',
     gridSpan: 'lg:col-span-1 lg:row-span-1'
   }
 ];
@@ -64,8 +64,8 @@ export default function Portfolio() {
     <PageWrapper>
       <section className="relative pt-40 pb-32 px-6 overflow-hidden min-h-[70vh] flex items-center">
         {/* 3D Background */}
-        <Decorative3DScene colorA="#8CE4FF" colorB="#FDEDED" showReflector={false} />
-        
+        <Decorative3DScene colorA="#FF5656" colorB="#FEB05D" showReflector={false} />
+
         <div className="relative z-10 max-w-7xl mx-auto w-full">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -75,7 +75,7 @@ export default function Portfolio() {
             <div className="max-w-2xl">
               <SectionHeading
                 label="Our Projects"
-                title={<>A Collection of <br/><span className="text-gradient">Our Best Events</span></>}
+                title={<>A Collection of <br /><span className="text-gradient">Our Best Events</span></>}
                 description=""
                 center={false}
               />
@@ -87,11 +87,10 @@ export default function Portfolio() {
                 <button
                   key={cat}
                   onClick={() => setActiveTab(cat)}
-                  className={`px-6 py-2.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] transition-all duration-500 ${
-                    activeTab === cat
-                    ? 'bg-black text-white shadow-xl scale-105'
-                    : 'bg-white border border-black/5 text-black/40 hover:bg-black/5'
-                  }`}
+                  className={`px-6 py-2.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] transition-all duration-500 ${activeTab === cat
+                      ? 'bg-black text-white shadow-xl scale-105'
+                      : 'bg-white border border-black/5 text-black/40 hover:bg-black/5'
+                    }`}
                 >
                   {cat}
                 </button>
@@ -126,7 +125,7 @@ export default function Portfolio() {
 
                   <div className="absolute inset-0 p-8 lg:p-12 flex flex-col justify-end">
                     <div className="flex items-center gap-3 mb-4 opacity-0 group-hover:opacity-100 -translate-y-4 group-hover:translate-y-0 transition-all duration-500 delay-100">
-                      <span className="glass px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-[0.2em] text-black/80">
+                      <span className="glass px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-[0.2em] text-[#2C2C2C]">
                         {project.category}
                       </span>
                       <div className="flex items-center gap-1 text-white/50 text-[10px] font-bold">
@@ -154,11 +153,11 @@ export default function Portfolio() {
         <div className="absolute inset-0 bg-gradient-to-br from-red/20 via-transparent to-sky/10 pointer-events-none" />
         <div className="relative z-10 max-w-4xl mx-auto px-6">
           <h2 className="font-heading text-5xl lg:text-8xl font-black mb-12 leading-[0.85]">
-            Start <span className="text-gradient italic">Planning</span><br/> Your Event
+            Start <span className="text-gradient italic">Planning</span><br /> Your Event
           </h2>
           <Link
             to="/contact"
-            className="inline-flex items-center gap-4 px-14 py-6 bg-white text-black rounded-full text-xl font-black hover:bg-sky hover:scale-105 active:scale-95 transition-all duration-500 group"
+            className="inline-flex items-center gap-4 px-14 py-6 bg-white text-[#2C2C2C] rounded-full text-xl font-black hover:bg-[#FF5656] hover:text-[#FCF8F8] hover:scale-105 active:scale-95 transition-all duration-500 group"
           >
             Get In Touch <ArrowUpRight className="w-6 h-6 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
           </Link>

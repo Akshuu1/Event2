@@ -39,7 +39,7 @@ export default function TiltCard({ children, className = "" }) {
       }}
       className={`relative ${className}`}
     >
-      <div 
+      <div
         style={{
           transform: "translateZ(50px)",
           transformStyle: "preserve-3d",

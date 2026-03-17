@@ -12,8 +12,8 @@ const services = [
     description: 'From royal palaces to beach luxury, we create weddings that you will never forget.',
     icon: Sparkles,
     image: 'https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=1200&q=80',
-    color: 'bg-red/10',
-    textColor: 'text-red'
+    color: 'bg-[#FF5656]/10',
+    textColor: 'text-[#FF5656]'
   },
   {
     id: 'corporate',
@@ -22,8 +22,8 @@ const services = [
     description: 'Smooth planning for business leaders. We handle all the details so you can focus on your brand.',
     icon: Building2,
     image: 'https://images.unsplash.com/photo-1540575861501-7cf05a4b125a?w=1200&q=80',
-    color: 'bg-sky/10',
-    textColor: 'text-sky'
+    color: 'bg-[#FEB05D]/10',
+    textColor: 'text-[#FEB05D]'
   },
   {
     id: 'culinary',
@@ -32,8 +32,8 @@ const services = [
     description: 'Top-quality meals created by master chefs, mixing traditional Indian flavors with international styles.',
     icon: UtensilsCrossed,
     image: 'https://images.unsplash.com/photo-1555244162-803834f70033?w=1200&q=80',
-    color: 'bg-yellow/10',
-    textColor: 'text-yellow'
+    color: 'bg-[#C7EABB]/10',
+    textColor: 'text-[#C7EABB]'
   }
 ];
 
@@ -45,12 +45,12 @@ export default function Services() {
     <PageWrapper>
       <section className="relative pt-40 pb-20 px-6 overflow-hidden min-h-[70vh] flex items-center">
         {/* 3D Background */}
-        <Decorative3DScene colorA="#8CE4FF" colorB="#E62727" showReflector={false} />
-        
+        <Decorative3DScene colorA="#FF5656" colorB="#FEB05D" showReflector={false} />
+
         <div className="relative z-10 max-w-7xl mx-auto w-full">
           <SectionHeading
             label="What We Do"
-            title={<>Expert <span className="text-gradient">Planning</span> <br/> for Premium Events</>}
+            title={<>Expert <span className="text-gradient">Planning</span> <br /> for Premium Events</>}
             description=""
             center={true}
           />
@@ -93,8 +93,8 @@ export default function Services() {
                     to="/contact"
                     className="inline-flex items-center gap-2 font-bold group"
                   >
-                    <span className="border-b-2 border-black/10 pb-1 group-hover:border-red transition-all duration-300">Get In Touch</span>
-                    <ArrowUpRight className="w-5 h-5 group-hover:text-red transition-colors" />
+                    <span className="border-b-2 border-[#2C2C2C]/10 pb-1 group-hover:border-[#FF5656] transition-all duration-300">Get In Touch</span>
+                    <ArrowUpRight className="w-5 h-5 group-hover:text-[#FF5656] transition-colors" />
                   </Link>
                 </div>
               </motion.div>
@@ -109,7 +109,7 @@ export default function Services() {
           <SectionHeading
             light
             label="Why Élance"
-            title={<>Why <span className="text-sky italic">Choose</span> Us</>}
+            title={<>Why <span className="text-[#FF5656] italic">Choose</span> Us</>}
             center={true}
           />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-16 mt-20">
@@ -118,7 +118,7 @@ export default function Services() {
               <p className="text-cream/50 uppercase tracking-widest text-xs font-bold">Your Privacy</p>
             </div>
             <div>
-              <div className="font-heading text-7xl font-black mb-4 text-red">24/7</div>
+              <div className="font-heading text-7xl font-black mb-4 text-[#FF5656]">24/7</div>
               <p className="text-cream/50 uppercase tracking-widest text-xs font-bold">Help & Support</p>
             </div>
             <div>

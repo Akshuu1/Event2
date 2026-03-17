@@ -9,22 +9,22 @@ const offerings = [
     title: 'VIP Guest Management',
     description: 'Special support for celebrities and VIPs. We handle everything with care and privacy.',
     icon: ShieldCheck,
-    color: 'bg-sky/10',
-    textColor: 'text-sky'
+    color: 'bg-[#FEB05D]/10',
+    textColor: 'text-[#FEB05D]'
   },
   {
     title: 'Travel & Transport',
     description: 'Private travel and transport for your guests, ensuring they arrive in style and comfort.',
     icon: Coffee,
-    color: 'bg-red/10',
-    textColor: 'text-red'
+    color: 'bg-[#FF5656]/10',
+    textColor: 'text-[#FF5656]'
   },
   {
     title: 'Professional Security',
     description: 'Top-quality security for your events, so you can enjoy the day without worries.',
     icon: Star,
-    color: 'bg-yellow/10',
-    textColor: 'text-yellow'
+    color: 'bg-[#C7EABB]/10',
+    textColor: 'text-[#C7EABB]'
   }
 ];
 
@@ -36,12 +36,12 @@ export default function Hospitality() {
     <PageWrapper>
       <section className="relative pt-40 pb-20 px-6 overflow-hidden min-h-[70vh] flex items-center">
         {/* 3D Background */}
-        <Decorative3DScene colorA="#E62727" colorB="#FFF799" showReflector={false} />
-        
+        <Decorative3DScene colorA="#FF5656" colorB="#FEB05D" showReflector={false} />
+
         <div className="relative z-10 max-w-7xl mx-auto w-full">
           <SectionHeading
             label="Guest Services"
-            title={<>The Secret to <span className="text-gradient italic">Seamless</span> <br/> Service</>}
+            title={<>The Secret to <span className="text-gradient italic">Seamless</span> <br /> Service</>}
             description=""
             center={true}
           />
@@ -49,9 +49,9 @@ export default function Hospitality() {
           <TiltCard className="mt-24 relative group">
             <div className="absolute inset-0 bg-black/5 rounded-[3rem] group-hover:scale-105 transition-transform duration-700 blur-2xl opacity-50" />
             <div className="relative aspect-video rounded-[4rem] overflow-hidden shadow-2xl border border-black/5">
-              <img 
-                src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1600&q=80" 
-                alt="Luxury Hospitality" 
+              <img
+                src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1600&q=80"
+                alt="Luxury Hospitality"
                 className="w-full h-full object-cover scale-105 hover:scale-100 transition-transform duration-1000"
               />
               <div className="absolute inset-0 bg-black/20" />
@@ -85,11 +85,11 @@ export default function Hospitality() {
       {/* Impact Section */}
       <section className="py-40 bg-black text-cream rounded-[4rem] mx-4 lg:mx-10 mb-20 overflow-hidden text-center">
         <div className="max-w-4xl mx-auto px-6">
-          <h2 className="font-heading text-6xl lg:text-8xl font-black mb-12 leading-[0.9]">Going Above and <span className="text-gradient italic">Beyond</span></h2>
+          <h2 className="font-heading text-6xl lg:text-8xl font-black mb-12 leading-[0.9]">Going Above and <span className="text-[#FF5656] italic">Beyond</span></h2>
           <p className="text-xl lg:text-2xl text-cream/40 font-light mb-16">We handle all the hard work so you can enjoy your special moment.</p>
           <Link
             to="/contact"
-            className="inline-flex items-center gap-4 px-12 py-5 bg-white text-black rounded-full font-black text-xl hover:bg-sky transition-all duration-500 group"
+            className="inline-flex items-center gap-4 px-12 py-5 bg-white text-[#2C2C2C] rounded-full font-black text-xl hover:bg-[#FF5656] hover:text-white transition-all duration-500 group"
           >
             Get In Touch <ArrowUpRight className="w-6 h-6 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
           </Link>

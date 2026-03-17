@@ -6,7 +6,8 @@ import LoadingScreen from './components/LoadingScreen';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
-import Global3DBackground from './components/Global3DBackground';
+import CinematicBackground from './components/CinematicBackground';
+import CustomCursor from './components/CustomCursor';
 
 import Home from './pages/Home';
 import Services from './pages/Services';
@@ -45,10 +46,10 @@ export default function App() {
 
   return (
     <Router>
+      <CustomCursor />
       <ScrollToTop />
-      {/* Global 3D Background */}
-      <Global3DBackground />
-      
+      <CinematicBackground />
+
       <div className="relative z-10 flex flex-col min-h-screen">
         <Navbar />
         <main className="flex-grow">

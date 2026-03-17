@@ -1,13 +1,14 @@
 import { useRef, useMemo } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { MeshDistortMaterial, Float, Environment, Instances, Instance, Stars } from '@react-three/drei';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { MeshDistortMaterial, Float, Environment, Stars } from '@react-three/drei';
+import { EffectComposer, Bloom, ChromaticAberration } from '@react-three/postprocessing';
 import * as THREE from 'three';
 
 // Silk Ribbon Component
 function SilkRibbon({ position, color, speed = 1, factor = 0.5 }) {
   const mesh = useRef();
   useFrame((state) => {
-    const t = state.clock.getElapsedTime();
+    const t = state.clock.elapsedTime;
     mesh.current.rotation.x = Math.sin(t * speed * 0.2) * 0.1;
     mesh.current.rotation.y = t * speed * 0.1;
     mesh.current.position.y = position[1] + Math.sin(t * speed * 0.5) * 0.5;
@@ -17,15 +18,16 @@ function SilkRibbon({ position, color, speed = 1, factor = 0.5 }) {
     <Float speed={speed * 2} rotationIntensity={0.5} floatIntensity={1}>
       <mesh ref={mesh} position={position}>
         <torusKnotGeometry args={[1.5, 0.02, 128, 32, 2, 3]} />
-        <MeshDistortMaterial
+        <meshPhysicalMaterial
           color={color}
-          speed={speed * 2}
-          distort={factor}
-          radius={1}
           metalness={0.9}
           roughness={0.1}
+          transmission={0.8}
+          thickness={2}
           transparent
-          opacity={0.6}
+          opacity={0.7}
+          emissive={color}
+          emissiveIntensity={0.5}
         />
       </mesh>
     </Float>
@@ -36,7 +38,7 @@ function SilkRibbon({ position, color, speed = 1, factor = 0.5 }) {
 function CrystalPrism({ position, size = 1, speed = 1 }) {
   const ref = useRef();
   useFrame((state) => {
-    const t = state.clock.getElapsedTime();
+    const t = state.clock.elapsedTime;
     ref.current.rotation.x = t * speed * 0.3;
     ref.current.rotation.y = t * speed * 0.5;
     ref.current.position.y = position[1] + Math.sin(t * speed) * 0.2;
@@ -67,7 +69,7 @@ function ChampagneBokeh() {
   const count = 300;
   const mesh = useRef();
   const dummy = useMemo(() => new THREE.Object3D(), []);
-  
+
   const particles = useMemo(() => {
     const temp = [];
     for (let i = 0; i < count; i++) {
@@ -83,7 +85,7 @@ function ChampagneBokeh() {
   }, []);
 
   useFrame((state) => {
-    const t = state.clock.getElapsedTime();
+    const t = state.clock.elapsedTime;
     particles.forEach((p, i) => {
       p.y += p.speed;
       if (p.y > 20) p.y = -20;
@@ -111,9 +113,15 @@ function ChampagneBokeh() {
 
 function Scene() {
   const group = useRef();
-  useFrame(() => {
+  const { mouse } = useThree();
+
+  useFrame((state) => {
     const scrollY = window.scrollY;
-    group.current.position.y = scrollY * 0.005;
+    group.current.position.y = THREE.MathUtils.lerp(group.current.position.y, scrollY * 0.005, 0.1);
+
+    // Smooth mouse parallax
+    group.current.rotation.x = THREE.MathUtils.lerp(group.current.rotation.x, mouse.y * 0.05, 0.05);
+    group.current.rotation.y = THREE.MathUtils.lerp(group.current.rotation.y, mouse.x * 0.05, 0.05);
   });
 
   return (
@@ -122,7 +130,7 @@ function Scene() {
       <SilkRibbon position={[10, -4, -18]} color="#8CE4FF" speed={0.8} factor={0.4} />
       <SilkRibbon position={[0, -15, -20]} color="#FFF799" speed={0.4} factor={0.5} />
       <SilkRibbon position={[8, 12, -25]} color="#EEFABD" speed={0.3} factor={0.7} />
-      
+
       <CrystalPrism position={[-4, -2, -6]} size={0.6} speed={1.2} />
       <CrystalPrism position={[4, 5, -8]} size={0.8} speed={0.9} />
       <CrystalPrism position={[0, 8, -12]} size={1.2} speed={0.5} />
@@ -141,10 +149,15 @@ export default function Global3DBackground() {
         <pointLight position={[10, 10, 10]} intensity={1.5} color="#FFFDF1" />
         <pointLight position={[-10, -10, -5]} intensity={1} color="#8CE4FF" />
         <spotLight position={[0, 20, 0]} intensity={2} color="#FDEDED" />
-        
+
         <Scene />
         <Environment preset="studio" />
         <Stars radius={100} depth={50} count={2000} factor={4} saturation={0} fade speed={1} />
+
+        <EffectComposer disableNormalPass>
+          <Bloom luminanceThreshold={1} intensity={1.5} levels={9} mipmapBlur />
+          <ChromaticAberration offset={[0.002, 0.002]} />
+        </EffectComposer>
       </Canvas>
     </div>
   );

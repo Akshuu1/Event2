@@ -8,7 +8,7 @@ export default function SectionHeading({ label, title, description, light = fals
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className={`text-[10px] font-black tracking-[0.4em] uppercase mb-6 ${light ? 'text-sky/60' : 'text-red/60'}`}
+          className={`text-[10px] font-black tracking-[0.6em] uppercase mb-6 ${light ? 'text-[#FCF8F8]/40' : 'text-[#FF5656]'}`}
         >
           {label}
         </motion.p>
@@ -18,7 +18,7 @@ export default function SectionHeading({ label, title, description, light = fals
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ delay: 0.1, duration: 0.8 }}
-        className={`font-heading text-4xl md:text-5xl lg:text-7xl font-black leading-[0.9] tracking-tight ${light ? 'text-white' : 'text-black'} ${center ? 'max-w-4xl mx-auto' : ''}`}
+        className={`font-heading text-4xl md:text-5xl lg:text-7xl font-black leading-[0.85] tracking-[-0.04em] ${light ? 'text-white' : 'text-plum'} ${center ? 'max-w-4xl mx-auto' : ''}`}
       >
         {title}
       </motion.h2>
