@@ -15,7 +15,6 @@ function CinematicLogo() {
     <Center top>
       <Float speed={5} rotationIntensity={0.2} floatIntensity={0.5}>
         <Text
-          font="https://cdn.jsdelivr.net/gh/google/fonts@main/ofl/outfit/static/Outfit-Black.ttf"
           fontSize={1.2}
           color="#000000"
           anchorX="center"
