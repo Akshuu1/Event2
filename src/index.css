@@ -30,24 +30,10 @@
     background-color: var(--color-cream);
     color: var(--color-black);
     overflow-x: hidden;
-    position: relative;
-  }
-
-  body::after {
-    content: "";
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 9999;
-    opacity: 0.05;
-    filter: url(#noise);
   }
 
   ::selection {
-    background-color: var(--color-black);
+    background-color: var(--color-red);
     color: var(--color-white);
   }
 }
@@ -56,9 +42,11 @@
 ::-webkit-scrollbar {
   width: 6px;
 }
+
 ::-webkit-scrollbar-track {
   background: var(--color-cream);
 }
+
 ::-webkit-scrollbar-thumb {
   background: var(--color-black);
   border-radius: 999px;
@@ -66,18 +54,10 @@
 
 @layer utilities {
   .glass {
-    background: rgba(255, 255, 255, 0.4);
-    backdrop-filter: blur(12px) saturate(120%);
-    -webkit-backdrop-filter: blur(12px) saturate(120%);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
-  }
-
-  .glass-minimal {
-    background: rgba(255, 253, 241, 0.1);
-    backdrop-filter: blur(24px) saturate(150%);
-    -webkit-backdrop-filter: blur(24px) saturate(150%);
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.3);
   }
 
   .glass-dark {
@@ -88,14 +68,10 @@
   }
 
   .text-gradient {
-    background: linear-gradient(135deg, var(--color-red) 0%, var(--color-sky) 100%);
+    background: linear-gradient(135deg, var(--color-red) 0%, #c41e1e 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-  }
-
-  .grad-brand {
-    background: linear-gradient(135deg, var(--color-red), var(--color-sky), var(--color-yellow), var(--color-lime));
   }
 
   .bg-aura-red {
@@ -120,6 +96,7 @@
   opacity: 0;
   transform: translateY(20px);
 }
+
 .page-enter-active {
   opacity: 1;
   transform: translateY(0);
