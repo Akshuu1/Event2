@@ -30,7 +30,7 @@ const works = [
 
 function SplitText({ children, delay = 0, animate = false }) {
   return (
-    <span className="inline-block overflow-hidden py-4 -my-4 h-fit">
+    <span className="inline-block overflow-hidden py-4 px-2 -my-4 -mx-2 h-fit">
       {children.split("").map((char, i) => (
         <motion.span
           key={i}
@@ -78,7 +78,7 @@ export default function Home() {
           <div className="absolute bottom-0 left-0 w-[40vw] h-[40vw] max-w-[600px] max-h-[600px] bg-lens-gold opacity-30 blur-[120px]" />
         </div>
 
-        <div className="relative z-10 w-full flex flex-col items-center">
+        <div className="relative z-10 w-full flex flex-col items-center px-4 md:px-0">
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -91,10 +91,10 @@ export default function Home() {
           </motion.div>
 
           <h1 className="font-heading text-fluid-hero font-black tracking-[-0.05em] text-white text-center w-full uppercase mb-4 sm:mb-12 pointer-events-auto leading-tight">
-            <div className="overflow-hidden py-4 -my-4"><SplitText delay={0.4} animate={true}>Grand</SplitText></div>
+            <div className="py-4 -my-4"><SplitText delay={0.4} animate={true}>Grand</SplitText></div>
             <div className="flex flex-wrap justify-center items-center gap-x-2 sm:gap-x-4 md:gap-x-8 gap-y-2 mt-2 py-4 -my-4">
-              <span className="italic font-light text-[#B89961] overflow-hidden"><SplitText delay={0.6} animate={true}>Indian</SplitText></span>
-              <span className="overflow-hidden"><SplitText delay={0.8} animate={true}>Weddings</SplitText></span>
+              <span className="italic font-light text-[#B89961]"><SplitText delay={0.6} animate={true}>Indian</SplitText></span>
+              <span><SplitText delay={0.8} animate={true}>Weddings</SplitText></span>
             </div>
           </h1>
 
